@@ -41,7 +41,6 @@
 		<!-- Logging -->
 		<logback.version>1.0.13</logback.version>
 		<slf4j.version>1.7.5</slf4j.version>
-		
 
 	</properties>
 	
@@ -79,7 +78,6 @@
 			<version>4.1.5.RELEASE</version>		<!-- 4.1.5.RELEASE in ced2ar-web -->
 		</dependency>
 		
-
 		<dependency>
 			<groupId>commons-configuration</groupId>
 			<artifactId>commons-configuration</artifactId>
@@ -199,71 +197,17 @@
 		<!-- START SWORD Support -->
         <dependency>
             <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>
+            <artifactId>commons-httpclient</artifactId>		<!-- Keep in ced2ar-web pom -->
             <version>3.1</version>
         </dependency>
-        <!-- 1 of 3 Duplicate dependencies.  Commenting out
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>1.4</version>
-        </dependency>
-        -->
-        <!-- 2 of 3 Duplicate dependencies.  Commenting out.  Watch for exclusion issues
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.15</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.mail</groupId>
-                    <artifactId>mail</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.jms</groupId>
-                    <artifactId>jms</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.jdmk</groupId>
-                    <artifactId>jmxtools</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.jmx</groupId>
-                    <artifactId>jmxri</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        -->
-        <dependency>
-            <groupId>org.apache.abdera</groupId>
-            <artifactId>abdera-client</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.foresite-toolkit</groupId>
-            <artifactId>foresite</artifactId>
-            <version>0.9</version>
-        </dependency>
-        <dependency>
-            <groupId>xom</groupId>
-            <artifactId>xom</artifactId>
-            <version>1.2.5</version>
-        </dependency>
-        <!-- 3 of 3 Duplicate dependencies.  Commenting out Both, using ced2ar-web. 
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.4</version>
-        </dependency>
-        -->
 		<dependency>
 			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
+			<artifactId>commons-codec</artifactId>			<!-- Keep in ced2ar-web.  CED2AR using 1.9 -->
 			<version>1.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
+			<artifactId>jsoup</artifactId>					<!-- Keep in ced2ar-web.  CED2AR using 1.7.3 -->
 			<version>1.6.1</version>
 		</dependency>
 		<!-- END SWORD Support -->
