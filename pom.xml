@@ -8,7 +8,7 @@
 
 		<!-- New. From ced2ar-web pom.xml  -->
 		<maven.build.timestamp.format>yyMMdd_HHmm</maven.build.timestamp.format>
-		<spring.version>4.1.7.RELEASE</spring.version>
+		<spring.version>4.1.5.RELEASE</spring.version>
 		<buildNumber>${maven.build.timestamp}</buildNumber>
 		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<timestamp>${maven.build.timestamp}</timestamp>
@@ -28,11 +28,6 @@
 		-->
 		<!-- Commented out.
 		<servlet.version>2.5</servlet.version>
-		-->
-
-		<!-- Spring -->
-		<!-- Commented out.  Using ced2ar-web variable and value 4.1.7
-		<spring-framework.version>4.1.5.RELEASE</spring-framework.version>
 		-->
 
 		<!-- Hibernate / JPA -->
@@ -60,7 +55,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>4.1.5.RELEASE</version>		<!-- 4.1.5.RELEASE in ced2ar-web -->
+			<version>${spring.version}</version>		<!-- 4.1.5.RELEASE in ced2ar-web -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -70,12 +65,12 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
-			<version>4.1.5.RELEASE</version>		<!-- 4.1.5.RELEASE in ced2ar-web -->
+			<version>${spring.version}</version>		<!-- 4.1.5.RELEASE in ced2ar-web -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
-			<version>4.1.5.RELEASE</version>		<!-- 4.1.5.RELEASE in ced2ar-web -->
+			<version>${spring.version}</version>		<!-- 4.1.5.RELEASE in ced2ar-web -->
 		</dependency>
 		
 		<dependency>
@@ -175,14 +170,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
-			<!-- Commented out.  Using ced2ar-web variable
-			<version>${spring-framework.version}</version>
-			-->
-
-			<!-- 7/21 Commented out.  The ced2ar-web jar is: spring-tx-4.1.5.RELEASE.jar
-			<version>${spring.version}</version>
-			-->
-			<version>4.1.5.RELEASE</version>		<!-- 4.1.5.RELEASE used by ced2ar-web -->
+			<version>${spring.version}</version>		<!-- 4.1.5.RELEASE used by ced2ar-web -->
 		</dependency>
 
 		
@@ -193,24 +181,6 @@
 			<version>0.9.4-SNAPSHOT</version>
 		</dependency>
 
-
-		<!-- START SWORD Support -->
-        <dependency>
-            <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>		<!-- Keep in ced2ar-web pom -->
-            <version>3.1</version>
-        </dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>			<!-- Keep in ced2ar-web.  CED2AR using 1.9 -->
-			<version>1.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>					<!-- Keep in ced2ar-web.  CED2AR using 1.7.3 -->
-			<version>1.6.1</version>
-		</dependency>
-		<!-- END SWORD Support -->
 	</dependencies>	
 
     <build>
