@@ -1,12 +1,7 @@
 package edu.ncrn.cornell.ced2ar.ced2ardata2ddi.web.controllers;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URI;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -16,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.swordapp.client.DepositReceipt;
 import org.w3c.dom.Document;
-import org.xhtmlrenderer.pdf.ITextRenderer;
 
 import edu.ncrn.cornell.ced2ar.ced2ardata2ddi.util.SwordDeposit;
 import edu.ncrn.cornell.ced2ar.csv.SpssCsvGenerator;
