@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.swordapp.client.DepositReceipt;
+//Not currently used
+//import org.swordapp.client.DepositReceipt;
 import org.w3c.dom.Document;
 
-import edu.ncrn.cornell.ced2ar.ced2ardata2ddi.util.SwordDeposit;
+// Not currently used
+//import edu.ncrn.cornell.ced2ar.ced2ardata2ddi.util.SwordDeposit;
 import edu.ncrn.cornell.ced2ar.csv.SpssCsvGenerator;
 import edu.ncrn.cornell.ced2ar.csv.StataCsvGenerator;
 import edu.ncrn.cornell.ced2ar.csv.VariableCsv;
