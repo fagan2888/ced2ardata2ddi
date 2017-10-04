@@ -33,6 +33,17 @@ import edu.ncrn.cornell.ced2ar.csv.VariableCsv;
 import edu.ncrn.cornell.ced2ar.ddi.CodebookVariable;
 import edu.ncrn.cornell.ced2ar.ddi.VariableDDIGenerator;
 
+/**
+ *A REST controller takes a file (Stata .dta) and converts it into DDI xml.
+ *
+ *@author Cornell University, Copyright 2012-2015
+ *@author Venky Kambhampaty
+ *
+ *@author Cornell Institute for Social and Economic Research
+ *@author Cornell Labor Dynamics Institute
+ *@author NCRN Project Team 
+ */
+ 
 @RestController
 public class DataFileRestController {
 	private static final Logger logger = Logger.getLogger(DataFileRestController.class);
@@ -150,6 +161,7 @@ public class DataFileRestController {
 		logger.info("file.getOriginalFilename(): " + file.getOriginalFilename());
 
 		VariableCsv variablesCSV;
+		long startTime = System.currentTimeMillis();
 
 		/*
 		 * getStorageDescription can return these formats/values:
@@ -203,14 +215,6 @@ public class DataFileRestController {
 				return "";
 			}
 		}
-		catch(Exception ex){
-			String message = "Unhandled Exception: "  + ex;
-			//logger.warn(message + "    Message: " + ex.getMessage());
-			logger.warn("Returning 500.  message: " + message);
-			response.addHeader("message", message);
-			response.setStatus(500);
-			return "";
-		}
 		finally{
 			// If we created an in memory temp file, then delete it.
 			if (inMemoryFile != null) {
@@ -220,10 +224,11 @@ public class DataFileRestController {
 					}
 				}
 				catch(SecurityException ex) {
-					logger.info("file NOT deleted due to SecurityException: " + ex.getMessage(), ex);
+					logger.info("temp file NOT deleted due to SecurityException: ", ex);
 				}
 				catch(IOException ex) {
-					logger.info("file NOT deleted due to IOException: " + ex.getMessage(), ex);
+					logger.info("temp file NOT deleted due to IOException: ", ex);
+					throw ex;
 				}
 			}
 		}
@@ -244,6 +249,7 @@ public class DataFileRestController {
 			response.setStatus(417);
 			logger.info("Returning 417.  Unable to read some variable values. Possible invalid summary statistics.");
 		}
+		logger.info("DDI xml generation took " + ((System.currentTimeMillis() - startTime) / 1000.0) + " seconds ");
 		logger.info("Returning ddi2String (normal)");
 		return ddi2String;
 
