@@ -43,14 +43,14 @@ import edu.ncrn.cornell.ced2ar.ddi.VariableDDIGenerator;
  *@author Cornell Labor Dynamics Institute
  *@author NCRN Project Team 
  */
- 
+
 @RestController
 public class DataFileRestController {
 	private static final Logger logger = Logger.getLogger(DataFileRestController.class);
-	
+
 	@Autowired
 	private ServletContext context;
-	
+
 	private File tempDirectoryFile = null;
 	private static final String FILE_PREFIX = "data_";
 	private static final String FILE_SUFFIX = ".tmp";
@@ -58,18 +58,20 @@ public class DataFileRestController {
 
 	/**
 	 * June 2017 - Converting this over to the new protype Lars wants to create codebooks from datasets and/or a SWORD2 interface.
-	 * 
+	 *
 	 * 	Pulled the original source code from: https://forge.cornell.edu/svn/repos/ncrn-cornell/branches/ced2ar/data/Tools/ced2ardata2ddi
 	 * 	Removed all the /src/main/java/org/swordapp/* files.  (There were differences between these files and the released versions.)
 	 *  Rebuilding the pom.xml file.  Taking out all the swordapp dependencies to get it to work...
 	 *  Making changes to get it to work on tomcat.
 	 *  Adding in error messaging...
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param file
 	 * @param summaryStats
 	 * @param recordLimit
+	 * @param handle
+	 * @param version
 	 * @return
 	 * @throws Exception
 	 */
@@ -80,7 +82,9 @@ public class DataFileRestController {
 			HttpServletResponse response,
 			@RequestParam(value = "file", required = true) MultipartFile file,
 			@RequestParam(value = "summaryStats", required = true, defaultValue = "true") boolean summaryStats,
-			@RequestParam(value = "recordLimit", required = true, defaultValue = "-1") long recordLimit)
+			@RequestParam(value = "recordLimit", required = true, defaultValue = "-1") long recordLimit,
+			@RequestParam(value = "handle", required = true, defaultValue = "missingHandle") String handle,
+			@RequestParam(value = "version", required = true, defaultValue = "missingVersion") String version)
 			throws Exception {
 
 		/*
@@ -120,26 +124,26 @@ public class DataFileRestController {
 		}
 		return ddi2String;
  */
-	
-		
+
+
 		/*
 		 * Objective: Get the Stata (.dta) file to DDI xml working for the prototype.
-		 * 
+		 *
 		 */
 
 		/*
 		 * Found a problem during testing.  There are two main parts to the problem:
-		 * 
-		 *   1) Files uploaded (via http POST message) to the web server (tomcat) are treated differently depending on size.  
-		 *		a) Smaller files are loaded into server memory.  The smaller “in memory” ones are failing. 
-		 *		b) Larger files are stored on disk (as tmp files).  
 		 *
-		 *   2) The existing classes, in ced2arddigenerator-1.1.1.jar (StataCsvGenerator, StataReaderFactory, Dta115Reader), 
-		 *   	require physical file locations. 
+		 *   1) Files uploaded (via http POST message) to the web server (tomcat) are treated differently depending on size.
+		 *		a) Smaller files are loaded into server memory.  The smaller “in memory” ones are failing.
+		 *		b) Larger files are stored on disk (as tmp files).
+		 *
+		 *   2) The existing classes, in ced2arddigenerator-1.1.1.jar (StataCsvGenerator, StataReaderFactory, Dta115Reader),
+		 *   	require physical file locations.
 		 *   	The FileNotFoundException is thrown by the DtaReader.class.  (This is several calls below the DataFileRestController.java file.)
 		 *
 		 * The solution is to:
-		 * 
+		 *
 		 * 	Use CommonsMultipartFile to find the StorageDescription.
 		 * 		For LARGER files, use the location of the tmp file created by tomcat (listed in the StorageDescription) 
 		 * 			for the downstream calls to classes in ced2arddigenerator-1.1.1.jar.
@@ -151,11 +155,11 @@ public class DataFileRestController {
 
 		/*
 		 * Find and set a temporary directory on the web server for the "in memory" files we need to create.
-		 */		
+		 */
 		if(tempDirectoryFile == null) {
 			setTempDirectoryFile();
 		}
-		
+
 		 // FYI: fileLocation replaces depositLocation.
 		String fileLocation = file.getOriginalFilename();
 		logger.info("file.getOriginalFilename(): " + file.getOriginalFilename());
@@ -165,14 +169,14 @@ public class DataFileRestController {
 
 		/*
 		 * getStorageDescription can return these formats/values:
-		 * 
+		 *
 		 *   1) "at ["<tempFilePathName."]" - used by (tomcat) servlet for large files
 		 *      IF a tempFilePathName, use this.  Strip out the characters added by getStorageDescription ("at [" and "]")
-		 *      
+		 *
 		 *   2) "in memory" - used by (tomcat) servlet for small files.  (Controlled by MaxInMemorySize.)
 		 *      IF this value, Move the content from memory to a file so the existing classes, in ced2arddigenerator-1.1.1.jar 
 		 *         (StataCsvGenerator, StataReaderFactory, Dta115Reader), can process it.
-		 *         
+		 *
 		 *   3) "on disk" - ?
 		 */
 		// TODO: May need to add checking for return values of "on disk"
@@ -181,32 +185,26 @@ public class DataFileRestController {
 		logger.info("fileStorageDesc: " + fileStorageDesc);
 
 		File inMemoryFile = null;
-		
+
 		try{
 			if (fileStorageDesc.equalsIgnoreCase("in memory")) {
 				// Move the content from in memory to a temp file.
 				inMemoryFile = File.createTempFile(FILE_PREFIX, FILE_SUFFIX, tempDirectoryFile);
-				logger.debug(" transferTo starting...");
 				file.transferTo(inMemoryFile);
-				logger.debug(" transferTo complete.");
-				logger.debug("inMemoryFile.getAbsolutePath: " + inMemoryFile.getAbsolutePath());
-				inMemoryFile.deleteOnExit();				
+				inMemoryFile.deleteOnExit();
 				fileLocation = inMemoryFile.getAbsolutePath();
-				//fileLocation = inMemoryFile.getCanonicalPath();
 			} else if (fileStorageDesc.startsWith("at [")) {
 				fileLocation = fileStorageDesc.substring(4, fileStorageDesc.length() - 1);
 			}
-			
+
 			logger.info("fileLocation: " + fileLocation);
-			
+
 			if (file.getOriginalFilename().toLowerCase().endsWith(".dta")) {
 				StataCsvGenerator gen = new StataCsvGenerator();
-				variablesCSV = gen.generateVariablesCsv(fileLocation,
-						summaryStats, recordLimit);
+				variablesCSV = gen.generateVariablesCsv(fileLocation,summaryStats, recordLimit);
 			} else if (file.getOriginalFilename().toLowerCase().endsWith(".sav")) {
 				SpssCsvGenerator gen = new SpssCsvGenerator();
-				variablesCSV = gen.generateVariablesCsv(fileLocation,
-						summaryStats, recordLimit);
+				variablesCSV = gen.generateVariablesCsv(fileLocation,summaryStats, recordLimit);
 			} else {
 				String message = "NOT a .dta or .sav file.  Cannot convert file: "  + file.getOriginalFilename();
 				logger.info("Returning 417.  message: " + message);
@@ -216,7 +214,7 @@ public class DataFileRestController {
 			}
 		}
 		finally{
-			// If we created an in memory temp file, then delete it.
+			// IF we created an in memory temp file, then delete it.
 			if (inMemoryFile != null) {
 				try {
 					if (inMemoryFile.delete()) {
@@ -234,11 +232,15 @@ public class DataFileRestController {
 		}
 
 		VariableDDIGenerator variableDDIGenerator = new VariableDDIGenerator();
-		List<CodebookVariable> codebookVariables = variableDDIGenerator
-				.getCodebookVariables(variablesCSV);
-		Document document = variableDDIGenerator
-				.getCodebookDocument(codebookVariables);
-		String ddi2String = variableDDIGenerator.DOM2String(document);
+		List<CodebookVariable> codebookVariables = variableDDIGenerator.getCodebookVariables(variablesCSV);
+		// Original svn method calls
+		//Document document = variableDDIGenerator.getCodebookDocument(codebookVariables);
+		//String ddi2String = variableDDIGenerator.DOM2String(document);
+
+		// Newer svn method calls in ced2arddigenerator's ced2ar_ddi_generator.jar file svn rev 1843 
+		//    FYI: 2nd param sets both <titl> values, so sending in handle value instead of file.getOriginalFilename()
+		Document document = variableDDIGenerator.getCodebookDocument(codebookVariables, handle, summaryStats);
+		String ddi2String = variableDDIGenerator.domToString(document);
 
 		if (variablesCSV.getReadErrors() > 0) {
 			long readErrors = variablesCSV.getReadErrors();
@@ -249,10 +251,11 @@ public class DataFileRestController {
 			response.setStatus(417);
 			logger.info("Returning 417.  Unable to read some variable values. Possible invalid summary statistics.");
 		}
+
 		logger.info("DDI xml generation took " + ((System.currentTimeMillis() - startTime) / 1000.0) + " seconds ");
+		logger.debug("ddi2String: " + ddi2String);
 		logger.info("Returning ddi2String (normal)");
 		return ddi2String;
-
 	}
 
 	@ResponseStatus(value = HttpStatus.BAD_REQUEST)
@@ -268,17 +271,17 @@ public class DataFileRestController {
 		return message;
 	}
 
-	
+
 	/**
-	 * Find and set a temporary directory on the web server.  
-	 *  
+	 * Find and set a temporary directory on the web server.
+	 *
 	 * Try to use the servlet's temporary directory first.  Make sure the directory exists and log path.
 	 *   If not found, use the "java.io.tmpdir" one.
 	 *   If neither are found, error out.
 	 */
 	private void setTempDirectoryFile() throws IOException{
 		logger.debug("Starting setTempDirectoryFile...");
-		
+
 		File dir = (File) context.getAttribute("javax.servlet.context.tempdir");
 		if(dir.exists()) {
 			tempDirectoryFile = dir;
@@ -300,6 +303,5 @@ public class DataFileRestController {
 		}
 		logger.info("tempDirectoryFile path: " + tempDirectoryFile.getAbsolutePath());
 	}
-
 
 }

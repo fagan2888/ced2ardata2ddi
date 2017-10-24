@@ -89,10 +89,20 @@
 	      <artifactId>ced2arstatareader</artifactId>
 	      <version>1.1.1</version>
 	    <dependency-->
+	    <!-- Original ced2arddigenerator.jar in svn ced2arddigenerator project
 	    <dependency>
 	      <groupId>edu.ncrn.cornell.ced2ar.ddi</groupId>
 	      <artifactId>ced2arddigenerator</artifactId>
 	      <version>1.1.1</version>
+	    </dependency>
+	     -->
+	    <!-- Newer ced2ar_ddi_generator.jar in svn ced2arddigenerator project revision 1843
+	         Using dependency data from svn pom.mxl
+	     -->
+	    <dependency>
+	      <groupId>ced2arddigenerator</groupId>
+	      <artifactId>ced2arddigenerator</artifactId>
+	      <version>0.0.1-SNAPSHOT</version>
 	    </dependency>
 	
 	    <dependency>

@@ -20,10 +20,12 @@ import org.springframework.web.multipart.MultipartFile;
 // cs added
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import org.swordapp.client.DepositReceipt;
+//Not currently used
+//import org.swordapp.client.DepositReceipt;
 import org.w3c.dom.Document;
 
-import edu.ncrn.cornell.ced2ar.ced2ardata2ddi.util.SwordDeposit;
+//Not currently used
+//import edu.ncrn.cornell.ced2ar.ced2ardata2ddi.util.SwordDeposit;
 import edu.ncrn.cornell.ced2ar.csv.SpssCsvGenerator;
 import edu.ncrn.cornell.ced2ar.csv.StataCsvGenerator;
 import edu.ncrn.cornell.ced2ar.csv.VariableCsv;
@@ -40,9 +42,11 @@ public class DataFileController {
 			@RequestParam(value = "file", required = false) MultipartFile file,
 			@RequestParam(value = "summaryStats", required = true, defaultValue = "true") boolean summaryStats,
 			@RequestParam(value = "recordLimit", required = true, defaultValue = "-1") long recordLimit,
-			Model model) throws Exception {
+			Model model,
+			@RequestParam(value = "handle", required = true, defaultValue = "missingHandle") String handle,
+			@RequestParam(value = "version", required = true, defaultValue = "missingVersion") String version) throws Exception {
 		String ddi2String = "";
-		
+
 /*
  * Commented out existing code.  Need to bypass SWORD calls because it contacts the SWORD server right away.
 
@@ -71,14 +75,14 @@ public class DataFileController {
 		model.addAttribute("fileName", file.getOriginalFilename() + ".xml");
 		return "codebookDDI";
  */
-		
-		 
+
+
 		/*
 		 * Get the Stata (.dta) file to DDI xml working for the prototype.
-		 */		
+		 */
 		if (file != null && !StringUtils.isEmpty(file.getOriginalFilename())) {
-			String depositLocation = file.getOriginalFilename();	
-			String tempFileLocation = "";			
+			String depositLocation = file.getOriginalFilename();
+			String tempFileLocation = "";
 			/*
 			 * Fix Error: java.io.FileNotFoundException:
 			 * 	- Moving this code to the server side (and possibly removing SWORD classes) caused this error.
@@ -94,17 +98,21 @@ public class DataFileController {
 			}
 			logger.info("tempFile Location: " + tempFileLocation);
 			logger.info("depositLocation: " + depositLocation);
-						
+
 			if (depositLocation.toLowerCase().endsWith(".dta")) {
 				StataCsvGenerator gen = new StataCsvGenerator();
-				VariableCsv variablesCSV = gen.generateVariablesCsv(
-						tempFileLocation, summaryStats, recordLimit);
-				ddi2String = getDDIString(variablesCSV);
+				VariableCsv variablesCSV = gen.generateVariablesCsv(tempFileLocation, summaryStats, recordLimit);
+				// Original svn method call
+				//ddi2String = getDDIString(variablesCSV);
+				// Newer svn method call in ced2arddigenerator's ced2ar_ddi_generator.jar file svn rev 1843
+				ddi2String = getDDIString(variablesCSV, handle, summaryStats);
 			} else if (depositLocation.toLowerCase().endsWith(".sav")) {
 				SpssCsvGenerator gen = new SpssCsvGenerator();
-				VariableCsv variablesCSV = gen.generateVariablesCsv(
-						depositLocation, summaryStats, recordLimit);
-				ddi2String = getDDIString(variablesCSV);
+				VariableCsv variablesCSV = gen.generateVariablesCsv(depositLocation, summaryStats, recordLimit);
+				// Original svn method call
+				//ddi2String = getDDIString(variablesCSV);
+				// Newer svn method call in ced2arddigenerator's ced2ar_ddi_generator.jar file svn rev 1843
+				ddi2String = getDDIString(variablesCSV, handle, summaryStats);
 			} else {
 				ddi2String = "Invalid Data file uploaded";
 			}
@@ -117,13 +125,21 @@ public class DataFileController {
 		return "codebookDDI";
 	}
 
-	private String getDDIString(VariableCsv variablesCSV) throws Exception {
+	// Original svn method signature
+	//private String getDDIString(VariableCsv variablesCSV) throws Exception {
+
+	// Revised to use Newer svn method calls in ced2arddigenerator's ced2ar_ddi_generator.jar file svn rev 1843
+	//  FYI: 2nd param sets both <titl> values, so sending in handle value instead of file.getOriginalFilename()
+	private String getDDIString(VariableCsv variablesCSV, String fileName, boolean runSumStats) throws Exception {
 		VariableDDIGenerator variableDDIGenerator = new VariableDDIGenerator();
-		List<CodebookVariable> codebookVariables = variableDDIGenerator
-				.getCodebookVariables(variablesCSV);
-		Document document = variableDDIGenerator
-				.getCodebookDocument(codebookVariables);
-		String ddi2String = variableDDIGenerator.DOM2String(document);
+		List<CodebookVariable> codebookVariables = variableDDIGenerator.getCodebookVariables(variablesCSV);
+		// Original svn method calls
+		//Document document = variableDDIGenerator.getCodebookDocument(codebookVariables);
+		//String ddi2String = variableDDIGenerator.DOM2String(document);
+
+		// Newer svn method calls in ced2arddigenerator's ced2ar_ddi_generator.jar file svn rev 1843
+		Document document = variableDDIGenerator.getCodebookDocument(codebookVariables, fileName, runSumStats);
+		String ddi2String = variableDDIGenerator.domToString(document);
 		return ddi2String;
 	}
 
