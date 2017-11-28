@@ -98,18 +98,26 @@
 	     -->
 	    <!-- Newer ced2ar_ddi_generator.jar in svn ced2arddigenerator project revision 1843
 	         Using dependency data from svn pom.mxl
-	     -->
 	    <dependency>
 	      <groupId>ced2arddigenerator</groupId>
 	      <artifactId>ced2arddigenerator</artifactId>
 	      <version>0.0.1-SNAPSHOT</version>
 	    </dependency>
-	
+	     -->
+	    <!-- TODO: Change.  Set to testing ONLY for skinny .jar  -->
+	    <dependency>
+	      <groupId>edu.ncrn.cornell.ced2ar</groupId>
+	      <artifactId>ced2arddigenerator</artifactId>
+	      <version>0.2.0-SNAPSHOT</version>
+	    </dependency>
+        <!-- Commenting out ced2arspssreader.  Does not appear to be used here. 	
 	    <dependency>
 	      <groupId>org.opendatafoundation.data</groupId>
 	      <artifactId>ced2arspssreader</artifactId>
 	      <version>1.1.1</version>
 	    </dependency>
+         -->
+
 	    <dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math3</artifactId>
