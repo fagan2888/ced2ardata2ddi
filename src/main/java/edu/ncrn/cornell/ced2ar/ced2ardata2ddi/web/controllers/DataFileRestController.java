@@ -21,12 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-//Not currently used
-//import org.swordapp.client.DepositReceipt;
+
 import org.w3c.dom.Document;
 
-// Not currently used
-//import edu.ncrn.cornell.ced2ar.ced2ardata2ddi.util.SwordDeposit;
 import edu.ncrn.cornell.ced2ar.csv.SpssCsvGenerator;
 import edu.ncrn.cornell.ced2ar.csv.StataCsvGenerator;
 import edu.ncrn.cornell.ced2ar.csv.VariableCsv;
@@ -86,45 +83,6 @@ public class DataFileRestController {
 			@RequestParam(value = "handle", required = true, defaultValue = "missingHandle") String handle,
 			@RequestParam(value = "version", required = true, defaultValue = "missingVersion") String version)
 			throws Exception {
-
-		/*
-		 * Commented out existing code.  Need to bypass SWORD calls because it contacts the SWORD server right away.
-
-		SwordDeposit swordDeposit = new SwordDeposit();
-		DepositReceipt receipt = swordDeposit.DepositDataFile(file);
-		String depositLocation = receipt.getLocation();
-		VariableCsv variablesCSV;
-		if (depositLocation.toLowerCase().endsWith(".dta")) {
-			StataCsvGenerator gen = new StataCsvGenerator();
-			variablesCSV = gen.generateVariablesCsv(depositLocation,
-					summaryStats, recordLimit);
-		} else if (depositLocation.toLowerCase().endsWith(".sav")) {
-			SpssCsvGenerator gen = new SpssCsvGenerator();
-			variablesCSV = gen.generateVariablesCsv(depositLocation,
-					summaryStats, recordLimit);
-		} else {
-			response.setStatus(417);
-			return "";
-		}
-
-		VariableDDIGenerator variableDDIGenerator = new VariableDDIGenerator();
-		List<CodebookVariable> codebookVariables = variableDDIGenerator
-				.getCodebookVariables(variablesCSV);
-		Document document = variableDDIGenerator
-				.getCodebookDocument(codebookVariables);
-		String ddi2String = variableDDIGenerator.DOM2String(document);
-
-		if (variablesCSV.getReadErrors() > 0) {
-			long readErrors = variablesCSV.getReadErrors();
-			response.addHeader(
-					"message",
-					readErrors
-							+ ": Unable to read some variable values. Possible invalid summary statistics.");
-			response.setStatus(417);
-		}
-		return ddi2String;
- */
-
 
 		/*
 		 * Objective: Get the Stata (.dta) file to DDI xml working for the prototype.
@@ -233,9 +191,6 @@ public class DataFileRestController {
 
 		VariableDDIGenerator variableDDIGenerator = new VariableDDIGenerator();
 		List<CodebookVariable> codebookVariables = variableDDIGenerator.getCodebookVariables(variablesCSV);
-		// Original svn method calls
-		//Document document = variableDDIGenerator.getCodebookDocument(codebookVariables);
-		//String ddi2String = variableDDIGenerator.DOM2String(document);
 
 		// Newer svn method calls in ced2arddigenerator's ced2ar_ddi_generator.jar file svn rev 1843 
 		//    FYI: 2nd param sets both <titl> values, so sending in handle value instead of file.getOriginalFilename()

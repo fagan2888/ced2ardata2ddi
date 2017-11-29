@@ -1,9 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
- <!-- <groupId>org.springframework.samples.service.service</groupId>   --> 
   <groupId>edu.ncrn.cornell.ced2ar.service</groupId>
   <artifactId>ced2ardata2ddi</artifactId>
- <!-- <version>1.0.1-SNAPSHOT</version> -->
   <version>1.2.0</version>
   <packaging>war</packaging>
 	<properties>
@@ -86,31 +84,12 @@
 			<artifactId>opencsv</artifactId>
 			<version>2.3</version>
 		</dependency>
-	    <!-- dependency>
-	      <groupId>edu.ncrn.cornell.ced2ar.stata</groupId>
-	      <artifactId>ced2arstatareader</artifactId>
-	      <version>1.1.1</version>
-	    <dependency-->
-	    <!-- Original ced2arddigenerator.jar in svn ced2arddigenerator project
+
+	    <!-- Uses normal/skinny version of ced2arddigenerator.jar  -->
 	    <dependency>
 	      <groupId>edu.ncrn.cornell.ced2ar.ddi</groupId>
 	      <artifactId>ced2arddigenerator</artifactId>
-	      <version>1.1.1</version>
-	    </dependency>
-	     -->
-	    <!-- Newer ced2ar_ddi_generator.jar in svn ced2arddigenerator project revision 1843
-	         Using dependency data from svn pom.mxl
-	    <dependency>
-	      <groupId>ced2arddigenerator</groupId>
-	      <artifactId>ced2arddigenerator</artifactId>
-	      <version>0.0.1-SNAPSHOT</version>
-	    </dependency>
-	     -->
-	    <!-- TODO: Change.  Set to testing ONLY for skinny .jar  -->
-	    <dependency>
-	      <groupId>edu.ncrn.cornell.ced2ar</groupId>
-	      <artifactId>ced2arddigenerator</artifactId>
-	      <version>0.2.0-SNAPSHOT</version>
+	      <version>1.2.0</version>
 	    </dependency>
 
 	    <dependency>
@@ -184,14 +163,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-tx</artifactId>
 			<version>${spring.version}</version>
-		</dependency>
-
-
-		<!-- cs added for swordapp/JavaClient2.0 -->
-		<dependency>
-			<groupId>org.swordapp</groupId>
-			<artifactId>sword2-client</artifactId>
-			<version>0.9.4-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>

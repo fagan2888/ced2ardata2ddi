@@ -29,15 +29,4 @@ public class ApplicationConfig {
 		}
 	}
 
-	public String getSwordServiceDocumentURL() {
-		return (String) properties.getProperty("sword.service.document.url");
-	}
-
-	public String getSwordAuthorizationUserId() {
-		return (String) properties.getProperty("sword.authorization.user.id");
-	}
-
-	public String getSwordAuthorizationUserPwd() {
-		return (String) properties.getProperty("sword.authorization.user.pwd");
-	}
 }
