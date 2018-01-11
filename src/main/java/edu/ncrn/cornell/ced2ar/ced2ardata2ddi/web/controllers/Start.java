@@ -10,6 +10,7 @@ public class Start {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String printWelcome(ModelMap model) {
-		return "dataFileUpload";
+	//	return "dataFileUpload";
+		return "about";
 	}
 }

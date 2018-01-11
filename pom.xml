@@ -21,13 +21,10 @@
 
 		<!-- Web -->
 		<!-- Commented out.  NOT in ced2ar-web pom.xml
-		<jsp.version>2.2</jsp.version>
 		-->
 		<!-- Commented out.
-		<jstl.version>1.2</jstl.version>
 		-->
 		<!-- Commented out.
-		<servlet.version>2.5</servlet.version>
 		-->
 
 		<!-- Hibernate / JPA -->
@@ -121,11 +118,6 @@
 
 		<!-- Other Web dependencies -->
 		<!-- Commented out.  Using ced2ar-web version.
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>${jstl.version}</version>
-		</dependency>
 		-->
 		<dependency>
 			<groupId>jstl</groupId>
@@ -134,12 +126,6 @@
 		</dependency>
 
 		<!-- 3 of 3 Duplicate dependencies.  Commenting out Both, using ced2ar-web.
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>${servlet.version}</version>
-			<scope>provided</scope>
-		</dependency>
 		-->
 		<!-- New. From ced2ar-web pom.xml  -->
 		<dependency>
@@ -149,12 +135,6 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- Commented out.  NOT in ced2ar-web pom.xml
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>${jsp.version}</version>
-			<scope>provided</scope>
-		</dependency>
 		-->
 
 		<!-- Spring and Transactions -->
