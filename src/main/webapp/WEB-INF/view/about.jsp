@@ -31,7 +31,7 @@
 
 		<div class="lb">
 			<h2>About the CED<sup>2</sup>AR Data to DDI Project</h2>
-			<p itemprop="about">
+			<p>
 				The Comprehensive Extensible Data Documentation and Access Repository (CED<sup>2</sup>AR)
 				is funded by the National Science Foundation (NSF), under grant <a href="http://www.nsf.gov/awardsearch/showAward?AWD_ID=1131848" target="_blank">#1131848</a>
 				and developed by the <a href="https://www.ncrn.cornell.edu">Cornell Node of the NSF Census Research Network (NCRN)</a>.
@@ -39,6 +39,21 @@
 				for Social and Economic Research  <a href="http://ciser.cornell.edu/" target="_blank">(CISER)</a> 
 				and the Cornell <a href="http://www.ilr.cornell.edu/ldi/" target="_blank">Labor Dynamics Institute</a>.	
 			</p>
+		</div>
+
+		<div class="lb">
+			<h3>Current Version</h3>
+			<p>
+				CED<sup>2</sup>AR Data to DDI version ${mainVer}
+			</p>
+			<c:if test="${initParam.buildTimeStamp} ne '${maven.build.timestamp}'}">
+				<%-- When running tomcat from eclipse, these build values may not be available --%>
+				<c:if test="${not empty initParam.buildTimeStamp}">
+					<p>
+					This instance was built on ${initParam.buildTimeStamp}
+					</p>
+				</c:if>	
+			</c:if>	
 		</div>
 
 		<div class="lb" id="legal">
@@ -73,13 +88,6 @@
 				to provide maintenance, support, updates, enhancements, or modifications. 
 				of merchantability or fitness for a particular purpose, or that the use of work 
 				and its associated copyrights will not infringe any patent, trademark or other rights.
-			</p>
-		</div>
-
-		<div class="lb">
-			<h3>Current Version</h3>
-			<p>
-				CED<sup>2</sup>AR Data to DDI version: 1.2.0
 			</p>
 		</div>
 
