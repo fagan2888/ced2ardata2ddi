@@ -32,7 +32,8 @@ public class DataFileController {
 	private static final Logger logger = Logger
 			.getLogger(DataFileController.class);
 
-	@RequestMapping(value = "/generateDDI", method = RequestMethod.POST)
+	// Commented out mapping to keep code IF needed.
+	//@RequestMapping(value = "/generateDDI", method = RequestMethod.POST)
 	public String generateDDI(
 			@RequestParam(value = "file", required = false) MultipartFile file,
 			@RequestParam(value = "summaryStats", required = true, defaultValue = "true") boolean summaryStats,
@@ -110,7 +111,8 @@ public class DataFileController {
 		return message;
 	}
 
-	@RequestMapping(value = "/downloadDDI", method = RequestMethod.POST, produces = "text/plain")
+	// Commented out mapping to keep code IF needed.
+	//@RequestMapping(value = "/downloadDDI", method = RequestMethod.POST, produces = "text/plain")
 	public void downloadDDI(@RequestParam("codebookDDI") String codebookDDI,
 			@RequestParam("codebookName") String codebookName,
 			HttpServletResponse response) throws Exception {
