@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1186911.svg)](https://doi.org/10.5281/zenodo.1186911)
+
 # ced2ardata2ddi
 This project contains java classes that will allow you to create a REST service.  The web service takes a message, with an attached (Stata or SPSS) dataset, and returns an xml response that is in DDI-C codebook format.
 
