@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>edu.ncrn.cornell.ced2ar.service</groupId>
   <artifactId>ced2ardata2ddi</artifactId>
-  <version>1.2.0</version>
+  <version>1.2.1-SNAPSHOT</version>
   <packaging>war</packaging>
 	<properties>
 
@@ -86,7 +86,7 @@
 	    <dependency>
 	      <groupId>edu.ncrn.cornell.ced2ar.ddi</groupId>
 	      <artifactId>ced2arddigenerator</artifactId>
-	      <version>1.2.0</version>
+	      <version>1.2.1-SNAPSHOT</version>
 	    </dependency>
 
 	    <dependency>
