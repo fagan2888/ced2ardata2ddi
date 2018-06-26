@@ -4,6 +4,30 @@
   <artifactId>ced2ardata2ddi</artifactId>
   <version>1.2.1-SNAPSHOT</version>
   <packaging>war</packaging>
+
+  <name>${project.groupId}:${project.artifactId}</name>
+  <description>A RESTful web service that takes a message, with an attached (Stata or SPSS) dataset, and returns an xml response that is in DDI-C codebook format.</description>
+  <url>https://github.com/ncrncornell/ced2ardata2ddi</url>
+  <licenses>
+    <license>
+      <name>Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</name>
+      <url>http://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.txt</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>Ced2ar Development</name>
+      <email>ced2ar-devs-l@list.cornell.edu</email>
+      <organization>NSF Census Research Network (NCRN) - Cornell node</organization>
+      <organizationUrl>https://www.ncrn.cornell.edu/projects/</organizationUrl>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git://github.com/ncrncornell/ced2ardata2ddi.git</connection>
+    <developerConnection>scm:git:ssh://github.com/ncrncornell/ced2ardata2ddi.git</developerConnection>
+    <url>https://github.com/ncrncornell/ced2ardata2ddi/tree/master</url>
+  </scm>
+
 	<properties>
 
 		<!-- New. From ced2ar-web pom.xml  -->
