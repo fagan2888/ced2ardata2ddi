@@ -43,21 +43,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-		<!-- Web -->
-		<!-- Commented out.  NOT in ced2ar-web pom.xml
-		-->
-		<!-- Commented out.
-		-->
-		<!-- Commented out.
-		-->
-
-		<!-- Hibernate / JPA -->
-		<hibernate.version>4.2.1.Final</hibernate.version>
-
-		<!-- Logging -->
-		<logback.version>1.0.13</logback.version>
-		<slf4j.version>1.7.5</slf4j.version>
-
 	</properties>
 
 	<dependencies>
@@ -68,6 +53,7 @@
 			<artifactId>spring-context</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -83,16 +69,6 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-aspects</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>commons-configuration</groupId>
@@ -100,24 +76,13 @@
 			<version>1.7</version>
 		</dependency>
 
-	  	<dependency>
-			<groupId>net.sf.opencsv</groupId>
-			<artifactId>opencsv</artifactId>
-			<version>2.3</version>
-		</dependency>
+	  <!-- Uses normal/skinny version of ced2arddigenerator.jar  -->
+	  <dependency>
+	    <groupId>edu.ncrn.cornell.ced2ar.ddi</groupId>
+	    <artifactId>ced2arddigenerator</artifactId>
+	    <version>1.2.1-SNAPSHOT</version>
+	  </dependency>
 
-	    <!-- Uses normal/skinny version of ced2arddigenerator.jar  -->
-	    <dependency>
-	      <groupId>edu.ncrn.cornell.ced2ar.ddi</groupId>
-	      <artifactId>ced2arddigenerator</artifactId>
-	      <version>1.2.1-SNAPSHOT</version>
-	    </dependency>
-
-	    <dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-math3</artifactId>
-			<version>3.5</version>
-		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
@@ -139,34 +104,19 @@
 			<version>2.4</version>
 		</dependency>
 
-
 		<!-- Other Web dependencies -->
-		<!-- Commented out.  Using ced2ar-web version.
-		-->
 		<dependency>
 			<groupId>jstl</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
 
-		<!-- 3 of 3 Duplicate dependencies.  Commenting out Both, using ced2ar-web.
-		-->
 		<!-- New. From ced2ar-web pom.xml  -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
-		</dependency>
-		<!-- Commented out.  NOT in ced2ar-web pom.xml
-		-->
-
-		<!-- Spring and Transactions -->
-		<!-- FYI: This is NOT in ced2ar-web -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
 
 	</dependencies>

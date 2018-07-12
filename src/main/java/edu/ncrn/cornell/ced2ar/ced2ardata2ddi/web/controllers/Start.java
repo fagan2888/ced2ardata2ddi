@@ -22,15 +22,6 @@ public class Start {
 	private HttpServletRequest request;
 
 	private static final Logger logger = Logger.getLogger(Start.class);
-
-/**
- * 	Replaced with home method and about page
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String printWelcome(ModelMap model) {
-		return "dataFileUpload";
-	}
-
- */
 	
 	/**
 	 * Method home.
