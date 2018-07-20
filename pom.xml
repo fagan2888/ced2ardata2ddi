@@ -78,7 +78,7 @@
 
 	  <!-- Uses normal/skinny version of ced2arddigenerator.jar  -->
 	  <dependency>
-	    <groupId>edu.ncrn.cornell.ced2ar.ddi</groupId>
+	    <groupId>edu.cornell.ncrn.ced2ar.ddigen</groupId>
 	    <artifactId>ced2arddigenerator</artifactId>
 	    <version>1.2.1-SNAPSHOT</version>
 	  </dependency>
