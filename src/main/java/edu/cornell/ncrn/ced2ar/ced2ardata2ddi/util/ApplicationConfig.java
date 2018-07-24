@@ -1,4 +1,4 @@
-package edu.ncrn.cornell.ced2ar.ced2ardata2ddi.util;
+package edu.cornell.ncrn.ced2ar.ced2ardata2ddi.util;
 
 /**
  * This class handles updating and reading property=value pairs 

@@ -1,4 +1,4 @@
-package edu.ncrn.cornell.ced2ar.ced2ardata2ddi.web.controllers;
+package edu.cornell.ncrn.ced2ar.ced2ardata2ddi.web.controllers;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -43,7 +43,7 @@ public class Start {
     public String about(Model model) {
 		String mainVer = "0.0.0";
 		java.io.InputStream in = request.getServletContext().getResourceAsStream(
-			"META-INF/maven/edu.ncrn.cornell.ced2ar.service/ced2ardata2ddi/pom.properties"
+			"META-INF/maven/edu.cornell.ncrn.ced2ar.ced2ardata2ddi/ced2ardata2ddi/pom.properties"
 		);
 		Properties mProps = new Properties();
 		try {

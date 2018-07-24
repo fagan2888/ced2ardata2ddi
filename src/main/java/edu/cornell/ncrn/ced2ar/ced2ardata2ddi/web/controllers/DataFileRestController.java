@@ -1,4 +1,4 @@
-package edu.ncrn.cornell.ced2ar.ced2ardata2ddi.web.controllers;
+package edu.cornell.ncrn.ced2ar.ced2ardata2ddi.web.controllers;
 
 import java.io.File;
 import java.io.IOException;
